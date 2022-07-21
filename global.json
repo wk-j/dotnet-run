@@ -4,8 +4,8 @@
     },
     "scripts": {
         "build": "dotnet build src/Run",
-        "run": "dotnet run --project src/Run",
         "pack": "dotnet pack src/Run -o artifacts",
-        "install": "dotnet tool install wk.Run --add-source artifacts --version 0.1.0"
+        "install": "dotnet tool install wk.Run --add-source artifacts",
+        "uninstall": "dotnet tool uninstall wk.Run"
     }
 }

@@ -9,14 +9,13 @@ Environment.SetEnvironmentVariable(
 
 var argsOpitons = new Option<string>(
     name: "-a",
-    description: "Extra aguments",
-    getDefaultValue: () => "xyz?"
+    description: "Extra aguments"
 );
 
 var commandOptions = new Option<string>(
     name: "-c",
     description: "Verb",
-    getDefaultValue: () => "run"
+    getDefaultValue: () => "build"
 );
 
 var rootCommand = new RootCommand("Execute script");
@@ -32,12 +31,17 @@ void Execute(string verb, string args) {
 async Task Start(string scriptName, string extra) {
     var ok = LoadScripts().TryGetValue(scriptName, out var script);
     if (!ok) {
+        Console.WriteLine("Cannot find script (Name={0})", scriptName);
         return;
     }
 
     var tokens = script.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-    var app = tokens[0];
-    var args = string.Join(" ", tokens.Skip(1)) + extra.Replace("xyz?", string.Empty);
+    var (app, args) =
+        tokens.Length switch {
+            1 => (tokens[0], ""),
+            > 1 => (tokens[0], string.Join(" ", tokens.Skip(1)) + " " + extra),
+            _ => ("", "")
+        };
 
     await using var stdOut = Console.OpenStandardOutput();
     await using var stdErr = Console.OpenStandardError();
@@ -48,7 +52,7 @@ async Task Start(string scriptName, string extra) {
 
     try {
         await cli.ExecuteAsync();
-    } catch {}
+    } catch { }
 }
 
 Dictionary<string, string> LoadScripts() {
