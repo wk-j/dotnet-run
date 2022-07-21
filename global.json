@@ -1,0 +1,11 @@
+{
+    "sdk": {
+        "version": "6.0.300"
+    },
+    "scripts": {
+        "build": "dotnet build src/Run",
+        "run": "dotnet run --project src/Run",
+        "pack": "dotnet pack src/Run -o artifacts",
+        "install": "dotnet tool install wk.Run --add-source artifacts --version 0.1.0"
+    }
+}
