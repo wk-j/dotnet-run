@@ -12,14 +12,13 @@ var argsOpitons = new Option<string>(
     description: "Extra aguments"
 );
 
-var commandOptions = new Option<string>(
-    name: "-c",
-    description: "Verb",
-    getDefaultValue: () => "build"
+var commandOptions = new Argument<string>(
+    name: "command",
+    description: "Script name"
 );
 
 var rootCommand = new RootCommand("Execute script");
-rootCommand.AddOption(commandOptions);
+rootCommand.AddArgument(commandOptions);
 rootCommand.AddOption(argsOpitons);
 rootCommand.SetHandler(Execute, commandOptions, argsOpitons);
 rootCommand.Invoke(args);

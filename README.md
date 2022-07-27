@@ -12,4 +12,4 @@ dotnet tool install wk.Run
 # Usage
 
 - Update `global.json`
-- Execute `dotnet r -c build`
+- Execute `dotnet r build`
