@@ -1,11 +1,13 @@
 {
     "sdk": {
-        "version": "6.0.300"
+        "version": "8.0.201"
     },
     "scripts": {
         "build": "dotnet build src/Run",
         "pack": "dotnet pack src/Run -o artifacts",
         "install": "dotnet tool install wk.Run --add-source artifacts",
-        "uninstall": "dotnet tool uninstall wk.Run"
+        "uninstall": "dotnet tool uninstall wk.Run",
+        "cat": "cat README.md",
+        "bat": "bat README.md"
     }
 }

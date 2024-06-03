@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "run": "dotnet run --project tests/Web1"
+    }
+}

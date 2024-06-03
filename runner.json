@@ -1,0 +1,7 @@
+    {
+        "scripts": {
+            "web1": "dotnet run --project tests/Web1",
+            "web2": "dotnet run --project tests/Web2",
+            "web3": "dotnet run --project tests/Web3"
+        }
+    }

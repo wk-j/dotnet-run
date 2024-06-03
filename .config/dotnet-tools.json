@@ -1,12 +1,5 @@
 {
   "version": 1,
   "isRoot": true,
-  "tools": {
-    "wk.run": {
-      "version": "3.3.3",
-      "commands": [
-        "r"
-      ]
-    }
-  }
+  "tools": {}
 }
