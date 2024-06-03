@@ -23,24 +23,20 @@ rootCommand.AddOption(argsOpitons);
 rootCommand.SetHandler(Execute, commandOptions, argsOpitons);
 rootCommand.Invoke(args);
 
-void Execute(string verb, string args)
-{
+void Execute(string verb, string args) {
     Start(verb, args).GetAwaiter().GetResult();
 }
 
-async Task Start(string scriptName, string extra)
-{
+async Task Start(string scriptName, string extra) {
     var ok = LoadScripts().TryGetValue(scriptName, out var script);
-    if (!ok)
-    {
+    if (!ok) {
         Console.WriteLine("Cannot find script (Name={0})", scriptName);
         return;
     }
 
     var tokens = script.Split(" ", StringSplitOptions.RemoveEmptyEntries);
     var (app, args) =
-        tokens.Length switch
-        {
+        tokens.Length switch {
             1 => (tokens[0], ""),
             > 1 => (tokens[0], string.Join(" ", tokens.Skip(1)) + " " + extra),
             _ => ("", "")
@@ -53,19 +49,15 @@ async Task Start(string scriptName, string extra)
         .Wrap(app)
         .WithArguments(args) | (stdOut, stdErr);
 
-    try
-    {
+    try {
         await cli.ExecuteAsync();
-    }
-    catch { }
+    } catch { }
 }
 
-Dictionary<string, string> LoadScripts()
-{
+Dictionary<string, string> LoadScripts() {
     var configFile = "run.json";
     var json = File.ReadAllText(configFile);
-    var options = new JsonSerializerOptions
-    {
+    var options = new JsonSerializerOptions {
         PropertyNameCaseInsensitive = true
     };
     var obj = JsonSerializer.Deserialize<GlobalConfig>(json, options);

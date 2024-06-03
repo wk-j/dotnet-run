@@ -88,8 +88,8 @@ public class ScriptExecutor {
     }
 
     private async Task<CommandTask<CommandResult>> Start(KeyValuePair<string, string> command, ControlOptions options) {
-        var stdOut = options.OutputStream;
-        var stdErr = options.ErrorStream;
+        var outputStram = options.OutputStream;
+        var errorStream = options.ErrorStream;
 
         var (name, script) = command;
         var tokens = script.Split(" ", StringSplitOptions.RemoveEmptyEntries);
@@ -102,7 +102,7 @@ public class ScriptExecutor {
 
         var cli = Cli
             .Wrap(app)
-            .WithArguments(args) | (stdOut, stdErr);
+            .WithArguments(args) | (outputStram, errorStream);
 
         return cli.ExecuteAsync(options.Graceful.Token);
     }
